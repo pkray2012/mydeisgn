@@ -515,5 +515,6 @@ WHEN YOU FINISH EACH PHASE
   anything that needs a database, paid service or secret), then the
   contact form test steps and the Netlify dashboard settings I need to
   change.
+- Phase 10: before/after screenshots and the bundle size change.
 - Commit, and push to the branch you were told to use.
 ````
