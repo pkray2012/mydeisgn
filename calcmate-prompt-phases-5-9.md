@@ -25,7 +25,7 @@ STEP 0: CHECK WHAT ALREADY EXISTS, AND SKIP IT
 ==========================================================================
 Before writing any code:
 1. Read the repository and find what already exists for each item in
-   Phases 5–8: pages/routes, components, rates and ratings data files,
+   Phases 5–9: pages/routes, components, rates and ratings data files,
    scripts and tests. The Phase 1–4 changes are in the code but NOT yet
    deployed, so the live site (https://calcmate.in) is out of date. Treat
    the code on your branch as the truth, and don't report items as
