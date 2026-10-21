@@ -25,7 +25,7 @@ How to work (applies to every phase):
   public/_redirects, plus a test.
 - Don't merge to main. At the end, open ONE pull request with all phases.
 
-===============================================================================================================================
+==========================================================================
 PHASE 1: HOMEPAGE: CLEAR STRUCTURE, LESS CLUTTER
 ==========================================================================
 Competitors' homepages feel organised because every section has one job
@@ -65,7 +65,11 @@ New homepage order:
    All 107 calculators →". Use the same shared navigation data as the
    menu (Phase 2).
 6. "Big money questions": 4 cards (₹10 lakh FD, home loan prepayment, tax
-   regime, minimum due) + "More money questions →".
+   regime, minimum due) + "More money questions →". Show each answer as
+   two small side-by-side result boxes (e.g. "All in one bank: ₹X
+   uninsured" vs "Split across 3 banks: fully insured"), computed by the
+   calculators, with a one-line takeaway and the link. No "SCENARIO 01"
+   badges.
 7. "Compare bank rates": keep the two tables (highest FD, lowest home
    loan), with bank logos (Phase 3), 5 rows each, and the DICGC note.
 8. Guides: 4 cards (not 6) + "Browse all guides →".
@@ -78,7 +82,7 @@ competitors, but subtle).
 Target: mobile homepage under ~9,000px (now ~16,500px); desktop roughly
 half its current height. Screenshots before/after at 375 and 1366.
 
-=====================
+==========================================================================
 PHASE 2: MENU: MORE CATEGORIES, ONE CLEAN LIST EACH
 ==========================================================================
 Today: 6 mega-menus with sub-headings; "Loans & EMI" has ~30 links and
@@ -171,7 +175,34 @@ Screenshots: two ranking pages and the FD suggestion tool at 375 and
 1366.
 
 ==========================================================================
-PHASE 4: SMALL CONTENT FIXES
+PHASE 4: SITE-WIDE DIRECTORY FOOTER + BANK DIRECTORY BY PRODUCT
+==========================================================================
+Competitors put a full directory at the bottom of every page (every
+category as a column of links, plus every bank with chips for each of its
+products). It helps visitors and search engines find every page. Do the
+same, in our light style (no dark section needed), built from the shared
+navigation data:
+1. Footer directory (above the existing footer): one column per menu
+   category (Loans, Credit Cards, Product EMI, Investments, FD & Savings,
+   Post Office, Tax, Salary & Retirement, Insurance & Goals, Everyday
+   math) listing ALL its calculators, small text, 4–5 columns on desktop;
+   on phones each category is a collapsed accordion. Then a "Banks" row:
+   every bank name (A–Z, with logo) linking to its page.
+2. /banks page: for each bank, a card with logo + name + small chips for
+   ONLY the products we have verified pages or rates for (e.g. FD, Home
+   loan, Personal loan, Car loan, Savings rate, Rating), grouped under
+   Public / Private / Small finance / Finance companies / Post Office.
+   No chip for a product without verified data (don't create pages just
+   to fill chips).
+3. On the Loans and FD & Savings hub pages, add "<Product> by bank" lists
+   (e.g. "Home loan by bank", "FD by bank", "Personal loan by bank") with
+   logos, linking to the verified bank pages only.
+4. Keep the footer light: plain HTML links (only small lazy logos), and
+   measure the HTML it adds per page. If it adds more than ~15 KB per
+   page, tell me and suggest a lighter version.
+
+==========================================================================
+PHASE 5: SMALL CONTENT FIXES
 ==========================================================================
 1. Money Tips frequency: "every two weeks" everywhere it's mentioned
    (skip if already done).
@@ -188,7 +219,7 @@ PHASE 4: SMALL CONTENT FIXES
 8. robots.txt: remove the "Host:" line.
 
 ==========================================================================
-PHASE 5: SEO CLEAN-UP FROM THE AUDIT
+PHASE 6: SEO CLEAN-UP FROM THE AUDIT
 ==========================================================================
 1. /blog/credit-cards and /blog/product-emi are indexable but all their
    articles are noindex: make the hubs noindex too, or index the
@@ -204,7 +235,7 @@ PHASE 5: SEO CLEAN-UP FROM THE AUDIT
 5. Fix heading jumps (h1 straight to h3) site-wide.
 
 ==========================================================================
-PHASE 6: ACCESSIBILITY AND PERFORMANCE FROM THE AUDIT
+PHASE 7: ACCESSIBILITY AND PERFORMANCE FROM THE AUDIT
 ==========================================================================
 1. Mobile menu closes on Esc; tables that scroll sideways can be reached
    and scrolled by keyboard (tabindex="0" with a label on the scroll box).
@@ -217,7 +248,7 @@ PHASE 6: ACCESSIBILITY AND PERFORMANCE FROM THE AUDIT
    /banks and one ranking page. Report the scores.
 
 ==========================================================================
-PHASE 7: CALCULATION AND DATA NOTES FROM THE AUDIT
+PHASE 8: CALCULATION AND DATA NOTES FROM THE AUDIT
 ==========================================================================
 1. FD under 6 months and EPF interest timing: check against the official
    rules and fix if wrong.
@@ -237,7 +268,7 @@ PHASE 7: CALCULATION AND DATA NOTES FROM THE AUDIT
    and correct.
 
 ==========================================================================
-PHASE 8: SECURITY: CSP IN REPORT-ONLY MODE
+PHASE 9: SECURITY: CSP IN REPORT-ONLY MODE
 ==========================================================================
 Add a Content-Security-Policy-Report-Only header (netlify.toml AND
 public/_headers, plus the config test) that allows our own files,
@@ -246,7 +277,7 @@ can't break anything. List exactly which domains it allows. I'll switch
 it to enforce later.
 
 ==========================================================================
-PHASE 9: PDF RATES (only if I've uploaded the files; otherwise skip)
+PHASE 10: PDF RATES (only if I've uploaded the files; otherwise skip)
 ==========================================================================
 If PDFs for MOSPI CPI, India Post / NSI, IPPB, Bank of India, Bandhan,
 IDBI, South Indian Bank, PNB Housing or Indian Bank loan rates are
@@ -257,7 +288,43 @@ once the series matches MOSPI. If none are uploaded, skip and list what's
 still missing.
 
 ==========================================================================
-PHASE 10: ICONS (small set, last)
+PHASE 11: NEW CALCULATORS COMPETITORS HAVE AND WE DON'T
+==========================================================================
+Build these in priority order (each a full calculator like ours: answer
+box, assumptions, formula, worked example, FAQ, shareable link, save &
+compare, CSV, unit tests, menu and hub entries). Skip any that already
+exist under another name and say so. Official rules only; where a rate
+or limit is needed, use verified data or let the user enter it.
+High priority:
+ 1. Stamp duty & registration (state-wise, from each state's official
+    source; leave out and list any state you can't verify)
+ 2. Property affordability
+ 3. Rental yield
+ 4. Mutual fund returns (SIP/lumpsum, absolute + CAGR/XIRR)
+ 5. Stock returns / dividend yield
+ 6. Emergency fund
+ 7. Tax saving / 80C (how much more to invest to use 80C, 80D,
+    80CCD(1B) in the old regime; say if the new regime is better anyway)
+ 8. Loan balance transfer / refinance
+ 9. PPF withdrawal & loan (official PPF rules)
+10. Used car loan EMI (general, not per bank)
+Medium priority:
+11. FIRE variants (Lean, Fat, Coast, Barista) as modes of the FIRE
+    calculator, unless separate pages are clearly better (explain)
+12. Marriage planning, Higher education abroad, Car down payment,
+    Vacation (as Goal SIP presets or their own pages; explain your choice)
+13. Asset allocation by age and risk (labelled a rule of thumb, not advice)
+14. Brokerage & charges (STT, exchange, GST, stamp duty, SEBI fees:
+    official rates only)
+15. Bonus (Payment of Bonus Act / Code on Wages rules)
+16. Depreciation (Income-tax WDV rates)
+Don't build: "best credit card" finders or card databases (no verified
+card data), or US calculators.
+Report what you built, what you skipped and why, and the new URLs and
+titles.
+
+==========================================================================
+PHASE 12: ICONS (small set, last)
 ==========================================================================
 One icon set (keep the one the repo uses, else lucide-react; tree-shaken
 SVG, no icon fonts or emoji). One icon per category and calculator,
@@ -270,7 +337,7 @@ else. Brand blue or grey only; decorative icons aria-hidden; no layout
 shift. Report bundle size before/after and show screenshots.
 
 ==========================================================================
-PHASE 11: FINAL AUDIT WITH SUBAGENTS, THEN THE PR
+PHASE 13: FINAL AUDIT WITH SUBAGENTS, THEN THE PR
 ==========================================================================
 Use subagents in parallel, each with one area and read-only access:
 calculation accuracy (every calculator, defaults and edge cases),
