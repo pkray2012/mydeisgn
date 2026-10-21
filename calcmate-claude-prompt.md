@@ -16,7 +16,7 @@ financial calculator website with about 80 calculators. It appears to be built
 with React/Next.js and Tailwind; the class names include ink-*, brand-* and
 bg-brand-50. Confirm the stack from the repository before changing anything.
 
-An audit of the live site found the problems listed below. Work in 4 phases,
+An audit of the live site found the problems listed below. Work in 5 phases,
 in order. Finish each phase, run the project's build, lint and tests, and
 check it in a browser at 375px (mobile) and 1366px (desktop) widths. Commit
 each phase separately with a clear message, then move to the next phase.
@@ -256,6 +256,95 @@ visible at the top of the page. Don't hide it behind a "Loading
 calculator..." spinner.
 
 ==========================================================================
+PHASE 5: SAVINGS ACCOUNT INTEREST CALCULATOR + ALL-BANK RATE COMPARISON
+==========================================================================
+
+Build two new pages in the same style as the existing calculators, and
+link them from the homepage, the Investment & Savings hub, /banks, the
+sitemap and the related-calculator lists.
+
+A) /savings-account-interest-calculator
+   Inputs:
+   - Bank (dropdown of every bank in the rates data below, plus "Custom rate")
+   - Balance: either one average balance, or a simple month-by-month
+     balance table (12 rows) for people whose balance changes
+   - Period: months or years
+   - Interest credit frequency: quarterly (default) or monthly. Pre-fill it
+     from the chosen bank's data when known.
+   - Age: below 60 / 60 and above (for the tax deduction)
+   - Tax regime: New / Old
+   Calculation rules (check them against RBI and Income Tax rules before
+   coding, and write them in the page's "Formula" and "Key assumptions"
+   sections):
+   - Interest is calculated on the daily closing balance and credited at
+     the chosen frequency. Compounding happens only at each credit.
+   - SLAB RATES: many banks pay different rates on different parts of the
+     balance (e.g. 2.70% up to ₹1 lakh, 3% on the part above ₹1 lakh).
+     Support both styles, and store which one each bank uses:
+     "tiered" (each part of the balance gets its own slab rate) and
+     "whole balance" (the whole balance gets the slab it falls into).
+   - Tax: Old regime: Section 80TTA deduction up to ₹10,000 (below 60) or
+     Section 80TTB up to ₹50,000 (60+, which also covers FD interest).
+     New regime: no 80TTA/80TTB. Show taxable interest. No TDS applies to
+     savings account interest; say so.
+   Outputs: total interest, effective annual yield, interest per credit
+   period (table), taxable interest, and "how much more you'd earn at the
+   best-paying bank for this balance". Use the shared components from
+   Phase 3 (shareable URL inputs, CSV download, save/compare).
+
+B) /savings-account-interest-rates (comparison page)
+   - One table of ALL banks in the data: bank, bank type (public, private,
+     small finance, payments bank), the rate for the balance entered, the
+     highest rate and the balance it needs, minimum balance, credit
+     frequency, "last verified" date, and a link to the bank's official
+     rate page.
+   - A balance box at the top (default ₹1,00,000). Sort by the rate earned
+     on that balance. Filters for bank type and "no minimum balance".
+   - Each row has a "Calculate" link that opens the calculator with that
+     bank and balance filled in.
+   - Title: "Savings Account Interest Rates Today (<Month Year>): All Banks
+     Compared | CalcMate". Put the month in automatically from the data's
+     newest verified date, never from the build date.
+   - Also show each bank's savings rate on its existing /banks/<bank> page,
+     using the same data.
+
+C) RATES DATA: THIS IS THE IMPORTANT PART. DO NOT INVENT RATES.
+   - Store the rates in ONE data file (JSON or TS) next to the existing
+     bank/FD rate data. For each bank: slabs [{from, to, rate}], slab
+     style, credit frequency, minimum balance, source URL (the bank's
+     official interest-rate page or PDF), "effective from" date, and
+     "last verified" date.
+   - Cover every bank in the current /banks directory: SBI, PNB, Bank of
+     Baroda, Bank of India, Bank of Maharashtra, Canara, Central Bank of
+     India, Indian Bank, Indian Overseas Bank, Punjab & Sind, UCO, Union
+     Bank, IDBI, HDFC, ICICI, Axis, Kotak, IDFC First, IndusInd, Yes, RBL,
+     Federal, South Indian, Karnataka, City Union, CSB, DCB, Dhanlaxmi,
+     Tamilnad Mercantile, Bandhan, AU SFB, Equitas SFB, Jana SFB, Suryoday
+     SFB, Ujjivan SFB, Utkarsh SFB. Add India Post Payments Bank and the
+     Post Office Savings Account (4% p.a., from nsiindia.gov.in /
+     indiapost.gov.in) as their own rows.
+   - Get each bank's current rates from that bank's OFFICIAL website or
+     rate PDF. Many banks moved to new .bank.in addresses (e.g. a
+     <name>.bank.in domain), so try both the old and the new address.
+     Don't use rates from blogs, aggregator sites or your own memory.
+   - If a bank's page can't be loaded or read, don't guess. Keep its
+     existing value if the site has one, with its old "last verified"
+     date; otherwise leave the bank out of the table and list it for me.
+     At the end, give me a table: bank | rates found | source URL |
+     verified (yes / could not load).
+   - On both pages, show "Rates as of <date>" and a short note: "Rates
+     change often. Check with the bank before opening an account." If a
+     bank's "last verified" date is older than 45 days, show a small
+     "may be outdated" marker on its row.
+   - Add a small script (e.g. `npm run check:savings-rates`) that lists
+     banks whose data is older than 45 days, so the data can be updated
+     regularly. Don't make the website itself fetch bank sites while
+     people are using it.
+   - Add unit tests for the calculation: tiered vs whole-balance slabs,
+     quarterly vs monthly credit, the 80TTA/80TTB limits, and a balance
+     exactly on a slab boundary.
+
+==========================================================================
 WHEN YOU FINISH EACH PHASE
 ==========================================================================
 - Run the build, lint and tests, and report the exact results.
@@ -263,6 +352,7 @@ WHEN YOU FINISH EACH PHASE
   reason.
 - For Phase 1, give a before/after table for items 1–5 (page, what it
   showed, what it shows now).
+- For Phase 5, give the bank-by-bank verification table from part C.
 - Commit, and push to the branch you were told to use.
 ````
 
