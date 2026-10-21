@@ -16,7 +16,7 @@ financial calculator website with about 80 calculators. It appears to be built
 with React/Next.js and Tailwind; the class names include ink-*, brand-* and
 bg-brand-50. Confirm the stack from the repository before changing anything.
 
-An audit of the live site found the problems listed below. Work in 5 phases,
+An audit of the live site found the problems listed below. Work in 6 phases,
 in order. Finish each phase, run the project's build, lint and tests, and
 check it in a browser at 375px (mobile) and 1366px (desktop) widths. Commit
 each phase separately with a clear message, then move to the next phase.
@@ -345,6 +345,123 @@ C) RATES DATA: THIS IS THE IMPORTANT PART. DO NOT INVENT RATES.
      exactly on a slab boundary.
 
 ==========================================================================
+PHASE 6: "WHAT SHOULD I DO?" SUGGESTION TOOLS (FD BY AMOUNT + INSURANCE COVER)
+==========================================================================
+
+Both tools give options worked out from the user's numbers, not product
+sales. Show this line on both: "These are calculated options, not
+financial advice." Never rank insurers or show affiliate products.
+
+A) FD SUGGESTION BY AMOUNT: /fd-suggestion (title: "Where Should I Put My
+   FD? Best FD Options for Your Amount")
+   Inputs:
+   - Amount to invest (e.g. ₹7,50,000)
+   - How long: a tenure (months/years) or "I need the money on <date>"
+   - Age: below 60 / 60+ (senior rates)
+   - Payout: at maturity / monthly / quarterly interest
+   - Tax: regime, and slab rate or annual income (for post-tax return)
+   - Bank types to include: public / private / small finance / Post Office
+     (small finance banks are on by default, with a one-line note on what
+     they are)
+   - "Might I need some money early?" yes/no
+   Use the same official FD rates data as the FD Comparison page (same
+   rules as Phase 5 part C: official sources only, "last verified" dates,
+   never invented). Use the rate for the user's amount AND tenure (rates
+   change with tenure, and amounts of ₹3 crore and above are "bulk" with
+   different rates).
+   Output, in this order:
+   1. Top 5 options for this amount and tenure: bank, rate, maturity
+      amount, interest, post-tax interest, payout per month/quarter if
+      chosen, and "last verified" date. Each opens the FD calculator
+      already filled in.
+   2. DEPOSIT INSURANCE CHECK (DICGC): deposits are insured up to ₹5 lakh
+      per depositor per bank (principal + interest, all accounts in that
+      bank added together). Check this limit and its rules on
+      dicgc.org.in before coding. If the amount plus interest exceeds
+      ₹5 lakh, suggest a split across 2–3 high-rate banks so each stays
+      within the cover, and show the rate difference vs putting it all in
+      one bank. Also add this check to the existing FD calculator and the
+      FD Comparison page as a small note.
+   3. FD LADDER option (if the "need money early" answer is yes, or the
+      amount is large): split into 3–5 FDs maturing at different times
+      (e.g. 1, 2, 3 years). Show the blended rate and when each part
+      becomes available.
+   4. TAX: TDS is deducted when FD interest from one bank in a year
+      crosses the threshold (check the current limits for regular and
+      senior depositors on incometax.gov.in; don't use remembered
+      numbers). Mention Form 15G/15H when the user's income is below
+      taxable. In the old regime, mention the 5-year tax-saver FD (80C).
+   5. ALTERNATIVES WORTH COMPARING for the same amount and tenure, using
+      the site's existing calculators: Post Office Time Deposit, and for
+      seniors SCSS and POMIS (with their deposit limits). Link to each.
+   6. A one-sentence answer at the top, above the details, like the other
+      calculators have.
+
+   WORKED EXAMPLE TO BUILD AND TEST AGAINST: "I have ₹10 lakh"
+   Inputs: ₹10,00,000, 2 years, age 35, interest at maturity, new regime,
+   30% slab, all bank types, no early need. The page should show:
+   - Top answer: "For ₹10 lakh over 2 years, the highest rates are at
+     <Bank A> (<x>%) and <Bank B> (<y>%). Split it as ₹4.5 lakh + ₹4.5 lakh
+     + ₹1 lakh across <Bank A>, <Bank B> and <Bank C> to stay fully
+     insured, and you'd get about ₹<maturity> back (₹<post-tax> after tax)."
+     The bank names, rates and amounts come from the rates data. Never
+     hard-code or invent them.
+   - Why it splits: ₹10 lakh in one bank leaves ₹5 lakh+ uninsured. Each
+     part must stay at or under ₹5 lakh INCLUDING the interest it will
+     earn by maturity, so ₹5,00,000 in one bank isn't enough room. Work
+     out the largest principal per bank that stays ≤ ₹5 lakh at maturity
+     for that bank's rate and tenure, and fill the highest-rate banks first.
+   - A table comparing: all in one bank vs the suggested split vs a
+     1/2/3-year ladder: total maturity, post-tax interest, amount insured,
+     and when the money becomes available.
+   - TDS note: interest per bank per year compared with the TDS
+     threshold, so the user sees which bank will deduct TDS.
+   - The same example with age 65 should switch to senior rates and also
+     show SCSS for comparison.
+   Put this example (with mocked rates in the test, not real ones) in the
+   unit tests.
+
+B) INSURANCE COVER SUGGESTION: improve the existing
+   /term-insurance-calculator, /insurance-needs-calculator,
+   /human-life-value-calculator and /health-insurance-calculator, and add
+   one simple entry page /how-much-insurance-do-i-need that asks a few
+   questions and gives BOTH numbers:
+   1. LIFE (TERM) COVER
+      Inputs: age, annual income, monthly household expenses, years until
+      the youngest dependant is independent / years to retirement,
+      outstanding loans, future goals (child education, marriage) in
+      today's money, existing life cover, existing savings/investments,
+      expected inflation and return.
+      Recommended cover = present value of the expenses the family needs
+      until those years + loans + goals (inflated) − existing cover −
+      savings. Round up to the nearest ₹25 lakh. Show the breakdown so the
+      user can see where the number comes from. Show "10–15× annual
+      income" only as a simple check next to it, not as the answer.
+      Suggest the policy tenure (cover until the age the user retires or
+      dependants become independent).
+   2. HEALTH COVER
+      Inputs: city (metro / tier-2 / tier-3), family members and ages,
+      existing employer cover, any parents to cover separately.
+      Give a suggested base cover plus a super top-up amount, with the
+      reason (city hospital costs, family size, age, employer cover ending
+      when the job changes). Keep the suggestion amounts in ONE
+      clearly-commented config file so they can be updated easily, and
+      say in the page's assumptions what they are based on.
+      Show the Section 80D limits (check the current limits first).
+   3. Don't estimate or show premiums unless the site already has a
+      sourced premium dataset. If it doesn't, say "Premiums vary by
+      insurer and health; get quotes" and link to irdai.gov.in for buying
+      tips.
+   4. Results: one clear summary card ("You may need about ₹1.5 Cr life
+      cover for 25 years and ₹10 L health + ₹25 L super top-up"), the
+      breakdown, the Phase 3 shareable link / save / CSV, and links to the
+      detailed calculators.
+
+Add unit tests for: the DICGC split (exactly ₹5 lakh, just above it,
+interest pushing it over), the ladder amounts adding up to the input, and
+the term-cover formula with zero/negative gaps (cover can't go below 0).
+
+==========================================================================
 WHEN YOU FINISH EACH PHASE
 ==========================================================================
 - Run the build, lint and tests, and report the exact results.
@@ -353,6 +470,8 @@ WHEN YOU FINISH EACH PHASE
 - For Phase 1, give a before/after table for items 1–5 (page, what it
   showed, what it shows now).
 - For Phase 5, give the bank-by-bank verification table from part C.
+- For Phase 6, show the ₹10 lakh worked example's output with the real
+  rates data, and the life/health cover suggestion for one sample family.
 - Commit, and push to the branch you were told to use.
 ````
 
