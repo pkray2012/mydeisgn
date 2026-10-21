@@ -1,12 +1,12 @@
 # CalcMate: Claude prompt for Phase 10 (icons only)
 
-Paste the box below into the same session where you pasted Phases 5–9, as a new message. It can go in after Claude finishes Phase 9, or while it's still working; it says to finish the current work first.
+Paste the box below into the same session where you pasted Phases 5–9, as a new message. Best sent after Claude has finished Phase 9. If you send it earlier, it tells Claude to finish Phases 5–9 first.
 
 ---
 
 ````text
-One more phase to add after Phases 5–9. Finish the phase you're working on
-first, then do this. Same rules as before: check what already exists and
+One more phase, to do LAST, only after Phases 5–9 are fully finished and
+committed. If you're still working on any of them, finish those first. Same rules as before: check what already exists and
 skip anything done, keep the site's clean style, run the build, lint and
 tests, check at 375px and 1366px, and commit it as its own phase.
 
@@ -38,21 +38,19 @@ find things, not everywhere.
    - FD suggestion: Lightbulb; rankings: ArrowUpWideNarrow /
      ArrowDownWideNarrow; ratings: BadgeCheck
    Use whatever is closest in the chosen set, and check each icon exists.
-3. WHERE TO ADD THEM:
-   - Header menu and mobile menu items (small, left of the text)
-   - Homepage category cards (one icon per category header)
-   - Calculator cards in hubs, /all-calculators, related calculators and
-     "Popular calculators" (small icon left of the title)
-   - Result cards on calculators (e.g. Wallet for EMI, Percent for
-     interest, Calendar for tenure): small and grey, beside the label
-   - The trust line, the "big questions" cards, the live-rates strip
-   - Buttons that act: Download (CSV), Printer, Share/Link, Bookmark
-     (save), Copy, plus the contact form topics
-   - Notes: Info, AlertTriangle ("may be outdated"), ShieldCheck
-     ("Insured by DICGC up to ₹5 lakh"), ShieldOff ("Not covered by
-     deposit insurance")
-   DON'T add icons to headings in long articles, to every FAQ question, or
-   to every table row.
+3. WHERE TO ADD THEM (keep it small; only these three places):
+   - Homepage category cards (one icon per category header) and
+     calculator cards on hub pages, /all-calculators, "Popular
+     calculators" and related-calculator lists (small icon left of the
+     title)
+   - The mobile menu (and the desktop header menu, if it fits without
+     crowding)
+   - Action buttons and key notes: Download (CSV), Printer, Share/Link,
+     Bookmark (save), Copy; Info, AlertTriangle ("may be outdated"),
+     ShieldCheck ("Insured by DICGC up to ₹5 lakh"), ShieldOff ("Not
+     covered by deposit insurance")
+   DON'T add icons anywhere else: not on result cards, the trust line,
+   headings, FAQ questions, table rows or article text.
 4. STYLE: icons in the brand teal or the current grey text colours, on
    no background or a very light brand-50 tint. ONE colour scheme for
    all of them: no multi-coloured icon tiles, no gradients, no shadows.
