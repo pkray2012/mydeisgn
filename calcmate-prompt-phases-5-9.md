@@ -1,11 +1,11 @@
-# CalcMate: Claude prompt for Phases 5–8
+# CalcMate: Claude prompt for Phases 5–9
 
 How to use this file:
 
 1. Open a Claude Code session with the CalcMate source code repository attached.
 2. Copy everything inside the box below and paste it as your first message.
 
-Phases 1–4 (bugs, logo, calculator improvements, design) are already done, so this prompt only covers Phases 5–8. Claude checks the code first and skips anything that already exists.
+Phases 1–4 (bugs, logo, calculator improvements, design) are already done, so this prompt only covers Phases 5–9. Claude checks the code first and skips anything that already exists.
 
 ---
 
@@ -17,7 +17,7 @@ Tailwind, hosted on Netlify).
 
 Earlier work (Phases 1–4: bug fixes, new logo, shared calculator features,
 design changes) is already done in the code but not yet live. Your job is
-Phases 5, 6, 7 and 8 below. Build on top of the branch that has the
+Phases 5, 6, 7, 8 and 9 below. Build on top of the branch that has the
 Phase 1–4 work; if it's not obvious which branch that is, ask me first.
 
 ==========================================================================
@@ -386,6 +386,66 @@ PHASE 8: EXTRA IMPROVEMENTS (skip any that already exist)
    work by keyboard.
 
 ==========================================================================
+PHASE 9: BACKEND NEEDS REVIEW + NETLIFY FORM ON THE CONTACT PAGE
+==========================================================================
+
+A) WHAT DOES THE SITE NEED BEHIND THE SCENES? (report first, then build)
+   Before building anything here, give me a short written review:
+   1. For each feature in Phases 5–9, does it need anything beyond static
+      pages and data files: a database, server functions, scheduled jobs,
+      email sending, file storage, environment variables/secrets, or a
+      paid service? Write a table: feature | what it needs | why | free
+      option on Netlify | cost if any.
+   2. Prefer the simplest option that works:
+      - Rates and ratings: data files in the repo (no database needed).
+      - Contact form: Netlify Forms (no database needed).
+      - Monthly stale-data check: GitHub Action or Netlify scheduled
+        function.
+      - Save & compare: the visitor's browser (localStorage), no accounts.
+   3. Only suggest a database (e.g. Netlify Blobs, Supabase or Neon) if a
+      feature really needs one, e.g. "email me when FD rates change" alerts
+      or storing user accounts. Explain what it would add and what it would
+      cost, then STOP and ask me before adding any database, paid service,
+      API key, secret or new environment variable. Don't create any
+      accounts.
+   4. List any settings I must change myself in the Netlify dashboard
+      (e.g. form notifications, environment variables, scheduled
+      functions), as step-by-step instructions.
+
+B) NETLIFY FORM ON THE CONTACT PAGE (/contact)
+   1. Replace or upgrade the current contact page form with a Netlify
+      Form named "contact":
+      - Fields: name, email (required, validated), topic (dropdown:
+        "Calculator gives a wrong result", "Rate or rating is outdated",
+        "Suggest a calculator", "Advertising / partnership", "Other"),
+        the page it's about (optional URL), message (required,
+        max 2,000 characters).
+      - Spam protection: Netlify honeypot field (netlify-honeypot) and,
+        if it doesn't hurt the design, Netlify's reCAPTCHA option.
+      - Submit without leaving the page, then show a clear success
+        message ("Thanks, we usually reply within 2 working days"; ask me
+        for the right wording) and a clear error message if it fails.
+      - Keyboard-accessible, labelled fields, works at 375px.
+   2. Make sure Netlify can actually detect the form. With Next.js on
+      Netlify, forms rendered by React aren't detected automatically: add
+      a static HTML copy of the form (e.g. public/__forms.html with the
+      same name and fields, as Netlify's Next.js docs describe) and submit
+      to that path with a URL-encoded POST including "form-name". Check
+      the current Netlify docs for the version of the Next.js runtime this
+      repo uses. If the site isn't Next.js, use the right method for its
+      framework.
+   3. Add "Report a wrong rate" and "Report a problem with this
+      calculator" links on rates pages, ranking pages and calculator pages.
+      They open /contact with the topic and page URL already filled in
+      (query string).
+   4. Update the Privacy Policy page: say what the contact form collects,
+      that it's stored by Netlify, and what it's used for.
+   5. Test it: build locally, check that the form appears in the static
+      HTML, and give me the steps to test it on a Netlify deploy preview
+      and to turn on email notifications for new submissions (Netlify
+      dashboard → Forms → Form notifications).
+
+==========================================================================
 WHEN YOU FINISH EACH PHASE
 ==========================================================================
 - Run the build, lint and tests, and report the exact results.
@@ -398,5 +458,9 @@ WHEN YOU FINISH EACH PHASE
 - Phase 7: give the ratings table (bank/company | agency | instrument |
   rating | date | source URL | found yes / not available).
 - Phase 8: list which items were already done and which you built.
+- Phase 9: the backend-needs table first (and wait for my answer on
+  anything that needs a database, paid service or secret), then the
+  contact form test steps and the Netlify dashboard settings I need to
+  change.
 - Commit, and push to the branch you were told to use.
 ````
