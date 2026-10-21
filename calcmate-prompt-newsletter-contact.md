@@ -1,4 +1,4 @@
-# CalcMate: Money Tips newsletter + new Contact page
+# CalcMate: Money Tips newsletter, new Contact page and sharper logo
 
 Paste the box below into the CalcMate session on `claude/cool-pasteur-5p6jp3`, BEFORE opening the pull request to `main`.
 
@@ -7,8 +7,8 @@ If you want Claude to copy the newsletter style from your pradiptaray site, firs
 ---
 
 ````text
-Two changes before we deploy, on branch claude/cool-pasteur-5p6jp3. Do them
-as two phases (G, then H), each its own commit. Same rules as before: keep
+Three changes before we deploy, on branch claude/cool-pasteur-5p6jp3. Do
+them as three phases (G, H, then I), each its own commit. Same rules as before: keep
 the clean style, official facts only, nothing invented, check 375px and
 1366px, run the build, lint, unit tests and browser tests, push, and report.
 
@@ -143,8 +143,46 @@ Redesign /contact so people pick who they are first, and the form adapts.
    filter by the "audience" field if Netlify supports it; otherwise one
    notification for all).
 
-When both phases are done: re-run the full browser tests and the crawl,
-then give me screenshots of /money-tips, the footer box, one calculator
-page with the topic box, and /contact with each type selected (375px and
-1366px). Push, and confirm the branch is still READY TO DEPLOY.
+==========================================================================
+PHASE I: MAKE THE LOGO LOOK SHARP ON MOBILE AND DESKTOP
+==========================================================================
+Today the header and footer use public/brand/calcmate-logo.png, a 500×72
+PNG wordmark (blue "CM" mark + "CalcMate.in"), shown at h-7 (28px) on
+phones and h-9 (36px) on desktop via src/components/layout/Logo.tsx. It is
+only 2× resolution, so it looks soft on 3× phone screens, and the long
+wordmark crowds the header on small phones.
+1. Make an SVG version of the logo (the mark and the wordmark as separate
+   pieces) that matches the PNG exactly: same shapes, colours and
+   proportions. If you can't recreate it faithfully, stop and ask me to
+   upload the original SVG/AI/Figma file instead. Don't redraw or
+   "improve" the design.
+2. Responsive logo in the header:
+   - Desktop (≥1024px): full wordmark, about 36–40px high, vertically
+     centred with the menu text.
+   - Tablet and normal phones (360–1023px): full wordmark, about 28–32px
+     high, with enough space for the search and menu buttons.
+   - Very small phones (<360px): the "CM" mark plus "CalcMate" (or the
+     mark alone if it still doesn't fit), never squeezed or cut off.
+   - The logo links to the homepage, has alt="CalcMate", a clear focus
+     ring, and a tap area of at least 44×44px.
+3. Keep width and height set so nothing shifts while it loads (no layout
+   shift), and load it with priority in the header.
+4. Footer: the full wordmark at a smaller size, with the same colours.
+5. Check the logo against every background it sits on (white header,
+   footer, any tinted sections). If any background makes it hard to see,
+   tell me and suggest a version (e.g. a white variant); don't add one
+   without asking.
+6. Re-check the favicon, apple-touch-icon, maskable icon and og.png still
+   match the logo and look sharp (use the SVG to regenerate them if
+   needed).
+7. Screenshots of the header at 320, 375, 414, 768, 1024 and 1366px
+   (before and after), and the footer at 375 and 1366px.
+
+==========================================================================
+WHEN ALL THREE PHASES ARE DONE
+==========================================================================
+Re-run the full browser tests and the crawl, then give me screenshots of
+/money-tips, the footer box, one calculator page with the topic box,
+/contact with each type selected, and the logo screenshots from Phase I
+(375px and 1366px). Push, and confirm the branch is still READY TO DEPLOY.
 ````
