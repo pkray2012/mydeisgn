@@ -16,7 +16,9 @@ the repository before changing anything (it appears to be React/Next.js with
 Tailwind, hosted on Netlify).
 
 Earlier work (Phases 1–4: bug fixes, new logo, shared calculator features,
-design changes) is already done. Your job is Phases 5, 6, 7 and 8 below.
+design changes) is already done in the code but not yet live. Your job is
+Phases 5, 6, 7 and 8 below. Build on top of the branch that has the
+Phase 1–4 work; if it's not obvious which branch that is, ask me first.
 
 ==========================================================================
 STEP 0: CHECK WHAT ALREADY EXISTS, AND SKIP IT
@@ -24,8 +26,10 @@ STEP 0: CHECK WHAT ALREADY EXISTS, AND SKIP IT
 Before writing any code:
 1. Read the repository and find what already exists for each item in
    Phases 5–8: pages/routes, components, rates and ratings data files,
-   scripts and tests. Also check the live site (https://calcmate.in) for
-   those pages.
+   scripts and tests. The Phase 1–4 changes are in the code but NOT yet
+   deployed, so the live site (https://calcmate.in) is out of date. Treat
+   the code on your branch as the truth, and don't report items as
+   missing just because the live site doesn't show them.
 2. Find the shared components from the earlier work: shareable URL inputs
    (query string), CSV / print download, save & compare (localStorage),
    the growth chart, the formatter for ₹ values in Indian format, and the
