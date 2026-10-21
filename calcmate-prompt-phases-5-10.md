@@ -1,11 +1,11 @@
-# CalcMate: Claude prompt for Phases 5–9
+# CalcMate: Claude prompt for Phases 5–10
 
 How to use this file:
 
 1. Open a Claude Code session with the CalcMate source code repository attached.
 2. Copy everything inside the box below and paste it as your first message.
 
-Phases 1–4 (bugs, logo, calculator improvements, design) are already done, so this prompt only covers Phases 5–9. Claude checks the code first and skips anything that already exists.
+Phases 1–4 (bugs, logo, calculator improvements, design) are already done, so this prompt only covers Phases 5–10. Claude checks the code first and skips anything that already exists.
 
 ---
 
@@ -17,7 +17,7 @@ Tailwind, hosted on Netlify).
 
 Earlier work (Phases 1–4: bug fixes, new logo, shared calculator features,
 design changes) is already done in the code but not yet live. Your job is
-Phases 5, 6, 7, 8 and 9 below. Build on top of the branch that has the
+Phases 5 to 10 below. Build on top of the branch that has the
 Phase 1–4 work; if it's not obvious which branch that is, ask me first.
 
 ==========================================================================
@@ -25,7 +25,7 @@ STEP 0: CHECK WHAT ALREADY EXISTS, AND SKIP IT
 ==========================================================================
 Before writing any code:
 1. Read the repository and find what already exists for each item in
-   Phases 5–9: pages/routes, components, rates and ratings data files,
+   Phases 5–10: pages/routes, components, rates and ratings data files,
    scripts and tests. The Phase 1–4 changes are in the code but NOT yet
    deployed, so the live site (https://calcmate.in) is out of date. Treat
    the code on your branch as the truth, and don't report items as
@@ -444,6 +444,59 @@ B) NETLIFY FORM ON THE CONTACT PAGE (/contact)
       HTML, and give me the steps to test it on a Netlify deploy preview
       and to turn on email notifications for new submissions (Netlify
       dashboard → Forms → Form notifications).
+
+==========================================================================
+PHASE 10: ICONS (consistent, quiet, one set)
+==========================================================================
+The site has very few icons. Add them where they help people scan and
+find things, not everywhere.
+
+1. ONE ICON SET. Check what the repo already uses (e.g. lucide-react,
+   heroicons, inline SVGs). If there's one, keep it; otherwise use
+   lucide-react. Import icons one by one (tree-shaken SVG). No icon
+   fonts, no emoji as icons, no icons from a CDN at runtime. Same stroke
+   width and size scale everywhere (e.g. 16px inline, 20px in cards,
+   24px in category headers).
+2. ONE ICON PER CALCULATOR AND CATEGORY. Create a single map
+   (calculator slug → icon, category → icon) and use it everywhere the
+   calculator appears. Suggested meanings:
+   - EMI / loans: Landmark, Home (home loan), Car, Bike, GraduationCap
+     (education), Gem (gold loan), CreditCard
+   - Product EMI: Smartphone, Laptop, Tv, AirVent, Refrigerator,
+     WashingMachine
+   - Investment & savings: TrendingUp (SIP), PiggyBank (FD/RD/savings),
+     Sprout (PPF/SSY), LineChart (CAGR/lumpsum)
+   - Tax & salary: Receipt, FileText, Wallet, Briefcase
+   - Post Office & Govt: Mail, Building2, Shield (pensions)
+   - Insurance & retirement: ShieldCheck, HeartPulse, Umbrella, Armchair
+   - Math: Percent, Calculator, Sigma
+   - FD suggestion: Lightbulb; rankings: ArrowUpWideNarrow /
+     ArrowDownWideNarrow; ratings: BadgeCheck
+   Use whatever is closest in the chosen set, and check each icon exists.
+3. WHERE TO ADD THEM:
+   - Header menu and mobile menu items (small, left of the text)
+   - Homepage category cards (one icon per category header)
+   - Calculator cards in hubs, /all-calculators, related calculators and
+     "Popular calculators" (small icon left of the title)
+   - Result cards on calculators (e.g. Wallet for EMI, Percent for
+     interest, Calendar for tenure): small and grey, beside the label
+   - The trust line, the "big questions" cards, the live-rates strip
+   - Buttons that act: Download (CSV), Printer, Share/Link, Bookmark
+     (save), Copy, plus the contact form topics
+   - Notes: Info, AlertTriangle ("may be outdated"), ShieldCheck
+     ("Insured by DICGC up to ₹5 lakh"), ShieldOff ("Not covered by
+     deposit insurance")
+   DON'T add icons to headings in long articles, to every FAQ question, or
+   to every table row.
+4. STYLE: icons in the brand teal or the current grey text colours, on
+   no background or a very light brand-50 tint. ONE colour scheme for
+   all of them: no multi-coloured icon tiles, no gradients, no shadows.
+5. ACCESSIBILITY AND SPEED: decorative icons get aria-hidden="true";
+   icon-only buttons get an aria-label. Icons must not push text or cause
+   layout shift (fixed width/height). Check that the JavaScript bundle
+   size doesn't grow noticeably; report the before/after size.
+6. Show me before/after screenshots of the homepage, one hub page and
+   one calculator page at 375px and 1366px.
 
 ==========================================================================
 WHEN YOU FINISH EACH PHASE
