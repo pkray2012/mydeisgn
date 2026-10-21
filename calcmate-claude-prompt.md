@@ -16,7 +16,7 @@ financial calculator website with about 80 calculators. It appears to be built
 with React/Next.js and Tailwind; the class names include ink-*, brand-* and
 bg-brand-50. Confirm the stack from the repository before changing anything.
 
-An audit of the live site found the problems listed below. Work in 6 phases,
+An audit of the live site found the problems listed below. Work in 7 phases,
 in order. Finish each phase, run the project's build, lint and tests, and
 check it in a browser at 375px (mobile) and 1366px (desktop) widths. Commit
 each phase separately with a clear message, then move to the next phase.
@@ -462,6 +462,81 @@ interest pushing it over), the ladder amounts adding up to the input, and
 the term-cover formula with zero/negative gaps (cover can't go below 0).
 
 ==========================================================================
+PHASE 7: HIGHEST / LOWEST RATE RANKINGS + BANK AND FINANCE COMPANY RATINGS
+==========================================================================
+
+A) HIGHEST AND LOWEST RATES
+   Using the same verified rates data (official sources only, "last
+   verified" dates, never invented):
+   1. On the FD Comparison, Savings Account Rates and loan pages, add a
+      sort toggle "Highest first / Lowest first", plus two small
+      summary boxes at the top: "Highest: <bank> <rate>" and "Lowest:
+      <bank> <rate>" for the amount and tenure the user picked.
+   2. New ranking pages, each with a table, the "as of <date>" line, and a
+      "Calculate" button on each row:
+      - /highest-fd-interest-rates (general and senior citizen tabs; filter
+        by tenure: 1 yr, 2 yr, 3 yr, 5 yr; filter by bank type)
+      - /highest-savings-account-interest-rates
+      - /lowest-home-loan-interest-rates
+      - /lowest-personal-loan-interest-rates
+      - /lowest-car-loan-interest-rates
+      - /lowest-education-loan-interest-rates and /lowest-gold-loan-interest-rates
+        only if the site already has those rates in its data
+      For deposits, "highest" is good; for loans, "lowest" is good. Label
+      them that way and colour them the same way. For loans, show the
+      "starting from" rate AND say it depends on credit score, income and
+      employer, and that processing fees aren't included. Show processing
+      fees where the data has them.
+   3. Rank on the rate for the exact tenure and amount shown. Small
+      finance banks and company FDs are shown with a clear label (see B)
+      so the top of the list is never misleading.
+
+B) BANK AND FINANCE COMPANY RATINGS (factual credit ratings only)
+   1. Add a "Rating" column to the FD comparison, savings rates, the
+      ranking pages, the FD suggestion tool (Phase 6) and each /banks/<bank>
+      page. It shows the CREDIT RATING given by a SEBI-registered rating
+      agency, e.g. "CRISIL AAA/Stable", "ICRA AA+/Stable", "CARE A+".
+      - For company FDs / NBFCs (e.g. Bajaj Finance, Shriram Finance,
+        Mahindra Finance, and any other finance companies you add): use the
+        rating of their FIXED DEPOSIT programme (FD ratings use a different
+        scale, e.g. "AAA (FD)" or "MAAA"; show it exactly as the agency
+        writes it).
+      - For banks: use the bank's long-term issuer or bond rating, and say
+        which instrument it is. Banks' deposits usually have no separate
+        rating, so don't make one up.
+   2. Store ratings in one data file: entity, agency, instrument, rating,
+      outlook, date of the rating action, and the URL of the agency's
+      rating rationale/press release. Get them ONLY from the agencies'
+      official sites: CRISIL (crisilratings.com), ICRA (icra.in), CARE
+      (careratings.com), India Ratings (indiaratings.co.in), Acuité
+      (acuite.in), Brickwork (brickworkratings.com), Infomerics
+      (infomerics.com). If you can't find or load a rating, leave the cell
+      as "Not available" and list it for me. Don't use blogs, news or memory.
+   3. DO NOT create CalcMate's own star ratings, scores, "safest bank"
+      labels or rankings of banks by safety. Only show the agencies'
+      ratings, with the agency name and date, and link to the source.
+   4. Add a short "What do these ratings mean?" box (AAA = highest
+      safety, then AA, A, BBB; anything below BBB is not investment grade;
+      outlook Stable/Positive/Negative/Watch) and the note: "Credit
+      ratings are opinions of the rating agency, not a guarantee."
+   5. Make the safety differences clear, using facts:
+      - Bank FDs (including small finance banks) are covered by DICGC
+        deposit insurance up to ₹5 lakh per depositor per bank.
+      - Company / NBFC FDs are NOT covered by DICGC. Show a clear label
+        "Not covered by deposit insurance" on every company FD row, and
+        don't let the FD suggestion tool (Phase 6) put company FDs in the
+        "insured split".
+      - Optionally mark the banks RBI lists as D-SIBs (domestic
+        systemically important banks), using RBI's latest list from
+        rbi.org.in, with its date.
+   6. Add a filter "Minimum rating" (e.g. AAA only / AA and above / all)
+      on the FD comparison, ranking pages and the FD suggestion tool. On
+      the FD suggestion tool, default it to "AA and above" for company FDs.
+   7. Add a check to the stale-data script from Phase 5
+      (`npm run check:savings-rates`, or a new `check:ratings`) that lists
+      ratings older than 12 months.
+
+==========================================================================
 WHEN YOU FINISH EACH PHASE
 ==========================================================================
 - Run the build, lint and tests, and report the exact results.
@@ -472,6 +547,8 @@ WHEN YOU FINISH EACH PHASE
 - For Phase 5, give the bank-by-bank verification table from part C.
 - For Phase 6, show the ₹10 lakh worked example's output with the real
   rates data, and the life/health cover suggestion for one sample family.
+- For Phase 7, give a table: bank/company | agency | instrument | rating |
+  date | source URL | found (yes / not available).
 - Commit, and push to the branch you were told to use.
 ````
 
