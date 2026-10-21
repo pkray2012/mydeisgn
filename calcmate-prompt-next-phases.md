@@ -1,4 +1,4 @@
-# CalcMate: next phases (A–E)
+# CalcMate: next phases (A–F)
 
 Paste the box below into the CalcMate session working on branch `claude/cool-pasteur-5p6jp3`. It replaces the earlier "redirects + newsletter" reply; that reply is now Phases A and D here.
 
@@ -6,7 +6,7 @@ Paste the box below into the CalcMate session working on branch `claude/cool-pas
 
 ````text
 Continue on branch claude/cool-pasteur-5p6jp3. Work phase by phase in the
-order below (A, B, C, D, E). For each phase: build it, run the build, lint,
+order below (A, B, C, D, E, F). For each phase: build it, run the build, lint,
 unit tests and browser tests, check every changed page at 375px and
 1366px, commit it as its own commit with the phase name, push, and give me
 a short report before starting the next phase.
@@ -184,4 +184,52 @@ PHASE E: FINAL PRE-LAUNCH CHECK (no new features)
    preview (calculators, both forms, redirects, a few bank pages), what
    to set in the Netlify dashboard, and what to watch in Google Search
    Console in the first two weeks after going live.
+
+==========================================================================
+PHASE F: FINAL AUDIT WITH SUBAGENTS (after A–E are all committed)
+==========================================================================
+I'll deploy after this, so be thorough. Use subagents (the Agent tool)
+running in parallel, each with ONE area, a clear scope and read-only
+access to the built site and code. Each returns findings with: severity
+(blocker / high / medium / low), page or file, what's wrong, how to
+reproduce, and the suggested fix. Run these audits:
+
+1. CALCULATION ACCURACY: for every calculator (about 100), check the
+   default example against an independent hand calculation of the
+   formula, plus edge cases (0%, very large amounts, shortest and longest
+   tenure, empty or invalid input). Check that the answer box, result
+   cards, tables, charts and CSV all show the same numbers.
+2. DATA AND SOURCES: every rate, rating, limit and tax figure shown comes
+   from the data files, has a source URL and date, and matches its
+   source; no typed numbers in page text; stale markers work; company FDs
+   are always labelled "not covered by deposit insurance" and never in
+   the insured split.
+3. TAX AND RULES: TDS thresholds, 80C/80D/80TTA/80TTB, 87A, slabs, cess,
+   GST on card charges, DICGC limit and RBI credit card rules match the
+   current official sources, and the FY/AY labels are right everywhere.
+4. SEO: titles, descriptions, canonicals, one H1, JSON-LD validity,
+   sitemap vs redirects vs noindex, internal links, broken links,
+   duplicate content, redirects (all old URLs resolve with one 301 hop).
+5. MOBILE, ACCESSIBILITY AND DESIGN: every page at 375px and 1366px (no
+   sideways scroll, nothing overlapping, tap targets), keyboard use,
+   labels, contrast, focus states, consistent style and icons.
+6. FORMS, PRIVACY AND SECURITY: contact and newsletter forms (Netlify
+   detection, honeypot, validation, success and error states), privacy
+   policy matches what's collected, no secrets or keys in the code, no
+   third-party scripts beyond the known ones (AdSense, analytics),
+   security headers in netlify.toml, and no user input rendered unsafely.
+7. PERFORMANCE: Lighthouse (mobile) on the homepage, one calculator, one
+   rates page and one bank page; JavaScript bundle size per page; images
+   and fonts; layout shift from ads.
+
+Then:
+- Verify each blocker and high finding yourself before fixing it (drop
+  false alarms, and say which ones you dropped).
+- Fix confirmed blockers and highs. Ask me before anything that changes a
+  feature or the design, or needs a paid service or secret.
+- List mediums and lows without fixing them unless trivial.
+- Re-run the build, all tests and the affected audits after the fixes.
+- Commit as "Final audit fixes", push, and end with a clear verdict:
+  READY TO DEPLOY or NOT READY (with the exact remaining blockers), plus
+  the full findings table.
 ````
