@@ -25,26 +25,60 @@ How to work (applies to every phase):
   public/_redirects, plus a test.
 - Don't merge to main. At the end, open ONE pull request with all phases.
 
+===============================================================================================================================
+PHASE 1: HOMEPAGE: CLEAR STRUCTURE, LESS CLUTTER
 ==========================================================================
-PHASE 1: HOMEPAGE DECLUTTER
-==========================================================================
-1. "Browse calculators by category": 5–6 most popular calculators per
-   category + "All <category> →". Equal-height cards, no big empty space.
-   On phones, a collapsible list (closed by default) instead of tall
-   cards. Use the same groups as the new menu (Phase 2).
-2. "Big money questions": show 4 (₹10 lakh FD, home loan prepayment, tax
-   regime, minimum due) + "More money questions →" (expandable section
-   or its own page with the rest).
-3. Mobile sticky result bar on the homepage: show it only while the
-   visitor is inside the featured EMI calculator, not from the first
-   screen.
-4. One disclaimer only: remove the duplicate block above the footer on
-   the homepage (keep the footer one).
-5. Don't change the header, hero, search or rates strip.
-Target: mobile homepage under ~9,000px tall (it's ~16,500px now).
-Screenshots before/after at 375 and 1366.
+Competitors' homepages feel organised because every section has one job
+and the category grid is uniform (8 equal cards, ~6 links each, an
+"All →" button). Copy that STRUCTURE, keep OUR clean style (no badges on
+links, no gradient text, no emoji, no dark promo sections, no undated
+claims).
 
-==========================================================================
+New homepage order:
+1. Hero: keep as is (headline, stats line, search, popular chips,
+   trust line, "Free money tips by email →").
+2. Rates today strip: keep the 5 tiles; give each tile one short line of
+   meaning and make the whole tile a link (e.g. "Best FD rate up to
+   8.25% · Suryoday SFB · Compare all FD rates →"). Keep the "As of" date.
+3. NEW "Start here" row: 4 equal task cards for the most common jobs:
+   - "Where should I put my FD?": FD suggestion, Highest FD rates, FD
+     calculator; button "Find the best FD →"
+   - "Home loan EMI & prepayment": Home loan EMI, Loan prepayment, Lowest
+     home loan rates; button "Calculate EMI →"
+   - "Income tax: old or new regime?": Income tax, Salary, HRA; button
+     "Calculate tax →"
+   - "Credit card costs": Minimum due / interest, Payoff, Rewards vs fee;
+     button "Check your card →"
+   Each card: one icon (brand blue), title, one-line description, 3 text
+   links, one button. Equal heights. 4 across on desktop, 2 on tablet,
+   1 on phones.
+4. Featured EMI calculator: REMOVE it from the homepage (it's one click
+   away in "Start here"). If you think removing it hurts, tell me why and
+   keep it collapsed behind "Try the EMI calculator here" instead.
+5. "Browse calculators by category": exactly 8 equal cards in a 4×2 grid
+   on desktop (2 columns on tablet; an accordion on phones, closed by
+   default): Loans | Credit Cards | Investments | FD & Savings | Post
+   Office | Tax | Salary & Retirement | Insurance & Goals. Each card: one
+   icon, title, a 1–2 line description, the 6 most useful links, and an
+   "All <category> →" button pinned to the bottom so the buttons line up.
+   Under the grid, one line: "Also: Product EMI · Everyday math · Banks ·
+   All 107 calculators →". Use the same shared navigation data as the
+   menu (Phase 2).
+6. "Big money questions": 4 cards (₹10 lakh FD, home loan prepayment, tax
+   regime, minimum due) + "More money questions →".
+7. "Compare bank rates": keep the two tables (highest FD, lowest home
+   loan), with bank logos (Phase 3), 5 rows each, and the DICGC note.
+8. Guides: 4 cards (not 6) + "Browse all guides →".
+9. FAQ: keep, 5 questions.
+10. One disclaimer only (the footer one); remove the duplicate block.
+Also: the mobile sticky result bar must not appear on the homepage (there
+is no calculator on it any more); give sections a consistent rhythm
+(same spacing, a light grey background on alternate sections, like
+competitors, but subtle).
+Target: mobile homepage under ~9,000px (now ~16,500px); desktop roughly
+half its current height. Screenshots before/after at 375 and 1366.
+
+=====================
 PHASE 2: MENU: MORE CATEGORIES, ONE CLEAN LIST EACH
 ==========================================================================
 Today: 6 mega-menus with sub-headings; "Loans & EMI" has ~30 links and
