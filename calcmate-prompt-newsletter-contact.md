@@ -120,7 +120,7 @@ Redesign /contact so people pick who they are first, and the form adapts.
      embed a calculator / other), deadline (optional).
 3. Under the form, a short "Good report example" box for users, e.g.
    "Page: /fd-calculator · I entered ₹1,00,000 at 7% for 1 year,
-   quarterly · Expected ₹107,186 · It showed ₹... ". Calculate the
+   quarterly · Expected ₹<calculated> · It showed ₹... ". Calculate the
    example with the site's own FD formula; don't type the number.
 4. For advertisers, add a short panel or a separate /advertise page:
    what can be sponsored, how sponsored content is labelled, and the
