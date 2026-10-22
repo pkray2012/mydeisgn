@@ -118,6 +118,31 @@ C3. GEO GUIDELINES (AI search: ChatGPT, Perplexity, Google AI Overviews,
     secret.
 Report a table: guideline | pages passing | pages fixed | left for me.
 
+C4. BRAND SEARCH: someone searching "CalcMate" or "calcmate.in" on
+    Google must find calcmate.in (other things are called CalcMate, e.g.
+    an iOS notes-calculator app and calcmate.org, so make our brand
+    signals strong and consistent):
+1. Homepage: title starts with the brand, e.g. "CalcMate: Free
+   Financial Calculators for India" (≤60 chars); H1 or first line names
+   "CalcMate"; meta description mentions "CalcMate".
+2. WebSite structured data on the homepage: name "CalcMate",
+   alternateName ["CalcMate.in", "Calc Mate"], url https://calcmate.in/
+   (this is what Google uses for the site name in results), plus a
+   SearchAction for the site search only if /search?q= really works.
+3. Organization structured data (site-wide, one @id): name "CalcMate",
+   alternateName "CalcMate.in", url, logo (square PNG ≥112×112, the
+   official logo), sameAs = our real social profiles (Facebook; ask me
+   for any others: X/Twitter, LinkedIn, Instagram, YouTube). Never list
+   profiles that don't exist.
+4. Every page title ends with " | CalcMate" (or the brand appears
+   consistently); og:site_name "CalcMate"; the same logo everywhere.
+5. Favicon: a square icon at least 48×48 (multiples of 48: 48, 96,
+   144) linked in the head, so Google can show it in results; the
+   favicon file must be crawlable (not blocked by robots.txt).
+6. About page: says clearly "CalcMate (calcmate.in) is ...", who runs
+   it, and links to the social profiles; link it from the footer.
+7. Report what you changed, and list the off-site steps for me (below).
+
 End STEP C with a READY TO DEPLOY / NOT READY verdict.
 
 ==========================================================================
